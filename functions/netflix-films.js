@@ -16,6 +16,8 @@ const url = `https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%3Anew4000-!${
 exports.handler = async (event, context) => {
     try {
         const { data } = await axios.get(url, options);
+        // update to get more data if there are more than 100 results
+        // console.log('data: ',data);
         return {
             statusCode: 200,
             body: JSON.stringify(data)
