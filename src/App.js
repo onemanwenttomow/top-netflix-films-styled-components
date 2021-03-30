@@ -36,8 +36,8 @@ function App() {
     return (
         <Wrapper>
             <AppHeader>
-                <h1>Top Films on Netflix Germany</h1>
-                <FilmCardWrapper films={topFilms} />
+                <FilmCardWrapper heading={ "All Top Films" } films={topFilms} />
+                <FilmCardWrapper heading={ "Some other breakdown" } films={topFilms.slice().reverse()} />
             </AppHeader>
             <GlobalStyles />
         </Wrapper>
@@ -48,10 +48,12 @@ const Wrapper = styled.div`
     /* background-color: green; */
 `;
 const AppHeader = styled.header`
-    /* background-color: #282c34; */
     min-height: 100vh;
+    max-width: 786px;
+    margin-left: auto;
+    margin-right: auto;
     font-size: calc(10px + 2vmin);
-    /* color: white; */
+    padding: 0 16px;
 `;
 
 export default App;

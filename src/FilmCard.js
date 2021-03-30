@@ -17,7 +17,13 @@ function FilmCard({ film }) {
 
 const Wrapper = styled.div`
     /* background-color: green; */
-    padding: 8px 24px;
+    padding: 8px;
+    :first-of-type {
+        padding-left: 0;
+    }
+    :last-of-type {
+        padding-right: 0;
+    }
 `;
 
 const Link = styled.a`

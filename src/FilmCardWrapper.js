@@ -1,17 +1,24 @@
 import styled from "styled-components/macro";
 import FilmCard from "./FilmCard";
 
-function FilmCardWrapper({ films }) {
+function FilmCardWrapper({ films, heading }) {
     return (
         <Wrapper>
-            {films.map((film) => (
-                <FilmCard film={film} key={film.netflixid} />
-            ))}
+            <h3>{heading}</h3>
+            <FilmsContainer>
+                {films.map((film) => (
+                    <FilmCard film={film} key={film.netflixid} />
+                ))}
+            </FilmsContainer>
         </Wrapper>
     );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
+    margin-bottom: 24px;
+`
+
+const FilmsContainer = styled.div`
     /* background-color: green; */
     overflow-x: auto;
     display: flex;
