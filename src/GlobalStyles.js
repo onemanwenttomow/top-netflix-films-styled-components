@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
+
 const GlobalStyles = createGlobalStyle`
+    @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -8,6 +10,7 @@ const GlobalStyles = createGlobalStyle`
       font-size: 18px;
     }
     body {
+      font-family: 'Raleway', sans-serif;
       background-color: hsl(0deg 0% 95%);
     }
 `;

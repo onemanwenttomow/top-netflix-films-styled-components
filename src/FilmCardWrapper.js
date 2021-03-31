@@ -15,8 +15,8 @@ function FilmCardWrapper({ films, heading }) {
 }
 
 const Wrapper = styled.section`
-    margin-bottom: 24px;
-`
+    color: hsl(0, 0%, 20%);
+`;
 
 const FilmsContainer = styled.div`
     /* background-color: green; */
@@ -27,9 +27,9 @@ const FilmsContainer = styled.div`
         background: transparent; /* Optional: just make scrollbar invisible */
     }
     /* Optional: show position indicator in red */
-    ::-webkit-scrollbar-thumb {
+    /* ::-webkit-scrollbar-thumb {
         background: black;
-    }
+    } */
 `;
 
 export default FilmCardWrapper;
