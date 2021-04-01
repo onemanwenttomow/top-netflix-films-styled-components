@@ -2,24 +2,22 @@ import styled from "styled-components/macro";
 import FilmCard from "./FilmCard";
 
 function FilmCardWrapper({ films, heading }) {
+    // show first 10 films. when user scrolls to end, then add more films using
+    // intersectionobserver api
     return (
-        <Wrapper>
+        <>
             <h3>{heading}</h3>
             <FilmsContainer>
                 {films.map((film) => (
                     <FilmCard film={film} key={film.netflixid} />
                 ))}
             </FilmsContainer>
-        </Wrapper>
+        </>
     );
 }
 
-const Wrapper = styled.section`
-    color: hsl(0, 0%, 20%);
-`;
 
 const FilmsContainer = styled.div`
-    /* background-color: green; */
     overflow-x: auto;
     display: flex;
     ::-webkit-scrollbar {

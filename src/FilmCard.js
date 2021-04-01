@@ -1,11 +1,9 @@
 import styled from "styled-components/macro";
+import { parseText } from "./helpers";
 
 function FilmCard({ film }) {
-
-    const strToDecode = film.title;
-    const parser = new DOMParser();
-    const title = parser.parseFromString(`<!doctype html><body>${strToDecode}`, "text/html")
-        .body.textContent;
+    const title = parseText(film.title)
+    
     return (
         <Wrapper>
             <Link href={`https://www.netflix.com/watch/${film.netflixid}`}>
