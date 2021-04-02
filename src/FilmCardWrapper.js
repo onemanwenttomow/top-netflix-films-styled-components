@@ -23,21 +23,26 @@ function FilmCardWrapper({ films, heading }) {
         };
         const filmToWatch = scrollContainer.current.children[numberToShow - 1];
 
+        if (!filmToWatch) {
+            return;
+        }
+
         let callback = (entries, observer) => {
             entries.forEach((entry) => {
-                if (scrollContainer.current.scrollLeft === 0) return;
-                console.log("entry", entry);
-                console.log("bring in more films.");
-                console.log("remove observer from this element", filmToWatch);
-                observer.unobserve(filmToWatch);
-                setNumberToShow((num) => num += 10)
+                if (entry.isIntersecting) {
+                    console.log("entry", entry);
+                    console.log("bring in more films.");
+                    console.log("remove observer from this element", filmToWatch);
+                    observer.unobserve(filmToWatch);
+                    setNumberToShow((num) => (num += 10));
+                }
             });
         };
         let observer = new IntersectionObserver(callback, options);
         observer.observe(filmToWatch);
 
         return () => console.log("cleaning up");
-    }, []);
+    }, [numberToShow]);
     console.log('numberToShow: ',numberToShow);
     films = films.slice(0, numberToShow);
     return (
