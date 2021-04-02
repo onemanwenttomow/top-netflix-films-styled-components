@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-
+// need to switch how i import the fonts
 const GlobalStyles = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
     *, *::before, *::after {

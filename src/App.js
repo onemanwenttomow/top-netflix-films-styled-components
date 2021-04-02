@@ -15,7 +15,7 @@ function App() {
         // check if films have already been added for todays date
         if (date === window.localStorage.getItem("updateDate")) {
             // if so get them from local strorage
-            console.log('from local');
+            console.log("from local");
             setTopFilms(JSON.parse(window.localStorage.getItem("films")));
             setaddedLast7Days(JSON.parse(window.localStorage.getItem("addedLast7Days")));
             setaddedLast30Days(JSON.parse(window.localStorage.getItem("addedLast30Days")));
@@ -26,7 +26,7 @@ function App() {
             const [response, response2] = await Promise.all([
                 fetch(`/.netlify/functions/netflix-films`),
                 fetch(`/.netlify/functions/new-netflix-films`)
-            ])
+            ]);
             const [data, data2] = await Promise.all([response.json(), response2.json()]);
             setTopFilms(data);
             setaddedLast7Days(data2.last7Days);
@@ -42,7 +42,9 @@ function App() {
     console.log("addedLast7Days: ", addedLast7Days);
 
     // maybe add a loading component while it fetches the data...
-
+    if (!topFilms.length) {
+        return null;
+    }
     return (
         <>
             <AppHeader>
@@ -70,7 +72,7 @@ function App() {
 
 const MainHeading = styled.h1`
     margin: 32px 0;
-`
+`;
 
 const AppHeader = styled.header`
     min-height: 100vh;
