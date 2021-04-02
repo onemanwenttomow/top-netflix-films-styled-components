@@ -2,7 +2,8 @@ import styled from "styled-components/macro";
 import { parseText } from "./helpers";
 
 function FilmCard({ film }) {
-    const title = parseText(film.title)
+    const title = parseText(film.title);
+    // need to handle when img srcs are broken.
     
     return (
         <Wrapper>
