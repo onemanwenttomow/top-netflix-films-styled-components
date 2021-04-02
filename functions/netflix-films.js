@@ -31,7 +31,7 @@ async function getAllFilms() {
     const { data } = await axios.get(url, options);
     films = [...films, ...data.ITEMS];
     if (data.COUNT > films.length) {
-        p++;
+        ++p;
         return getAllFilms();
     }
     return films;
