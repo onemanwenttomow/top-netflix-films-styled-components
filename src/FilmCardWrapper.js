@@ -1,42 +1,55 @@
-import { useRef, useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components/macro";
 import FilmCard from "./FilmCard";
+import { useElementOnScreen } from "./hooks";
+import { sortFilmsAscending, sortFilmsDescending, sortFilmsByRating } from "./helpers";
 
-function FilmCardWrapper({ films, heading }) {
-    const [numberToShow, setNumberToShow] = useState(10);
-    const scrollContainer = useRef();
+function FilmCardWrapper({ films, heading, defaultSort = "rating" }) {
+    const [isActive, setIsActive] = useState(defaultSort);
+    const [yearOrderIsAscending, setYearOrderIsAscending] = useState(true);
+    const [filmsToShow, setFilmsToShow] = useState([]);
+    const [scrollContainer, numberToShow] = useElementOnScreen({
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.1
+    });
+
     useEffect(() => {
-        let options = {
-            root: scrollContainer.current,
-            rootMargin: "0px",
-            threshold: 0.9
-        };
-        const filmToWatch = scrollContainer.current.children[numberToShow - 1];
+        setFilmsToShow(films);
+    }, [films]);
 
-        if (!filmToWatch) {
-            return;
-        }
+    function setActive(sortBy) {
+        setIsActive(sortBy);
+        let reOrderedFilms =
+            sortBy === "rating" ? sortFilmsByRating(filmsToShow) : sortFilmsAscending(filmsToShow);
+        setFilmsToShow(reOrderedFilms);
+    }
 
-        let callback = (entries, observer) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    console.log("remove observer from this element", filmToWatch);
-                    observer.unobserve(filmToWatch);
-                    setNumberToShow((num) => (num += 10));
-                }
-            });
-        };
-        let observer = new IntersectionObserver(callback, options);
-        observer.observe(filmToWatch);
+    function setYearDirection() {
+        setYearOrderIsAscending(!yearOrderIsAscending);
+        let reOrderedFilms = yearOrderIsAscending
+            ? sortFilmsDescending(filmsToShow)
+            : sortFilmsAscending(filmsToShow);
+        setFilmsToShow(reOrderedFilms);
+    }
+    console.log("yearOrderIsAscending: ", yearOrderIsAscending);
 
-        return () => console.log("cleaning up");
-    }, [numberToShow]);
-    films = films.slice(0, numberToShow);
     return (
         <>
-            <h3>{heading}</h3>
+            <h3>
+                {heading} Sort By:
+                <SortByTag active={isActive === "rating"} onClick={() => setActive("rating")}>
+                    Rating
+                </SortByTag>
+                <SortByTag active={isActive === "year"} onClick={() => setActive("year")}>
+                    Year
+                </SortByTag>
+                {isActive === "year" && (
+                    <span onClick={setYearDirection}>{yearOrderIsAscending ? "⬆" : "⬇"} </span>
+                )}
+            </h3>
             <FilmsContainer ref={scrollContainer}>
-                {films.map((film) => (
+                {filmsToShow.slice(0, numberToShow).map((film) => (
                     <FilmCard film={film} key={film.netflixid} />
                 ))}
             </FilmsContainer>
@@ -47,6 +60,7 @@ function FilmCardWrapper({ films, heading }) {
 const FilmsContainer = styled.div`
     overflow-x: auto;
     display: flex;
+    min-height: 345px;
     ::-webkit-scrollbar {
         width: 0; /* Remove scrollbar space */
         background: transparent; /* Optional: just make scrollbar invisible */
@@ -55,6 +69,11 @@ const FilmsContainer = styled.div`
     /* ::-webkit-scrollbar-thumb {
         background: black;
     } */
+`;
+
+const SortByTag = styled.span`
+    background-color: ${(p) => (p.active ? "red" : "transparent")};
+    padding: 0 16px;
 `;
 
 export default FilmCardWrapper;
