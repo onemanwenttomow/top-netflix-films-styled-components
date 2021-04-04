@@ -88,7 +88,7 @@ const AppHeader = styled.header`
     max-width: 786px;
     margin-left: auto;
     margin-right: auto;
-    font-size: calc(10px + 2vmin);
+    /* font-size: calc(10px + 2vmin); */
     padding: 0 16px;
     color: hsl(0, 0%, 20%);
 `;
