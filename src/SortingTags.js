@@ -23,7 +23,7 @@ function SortingTags({ defaultSort, setFilmsToShow, filmsToShow }) {
     }
 
     return (
-        <>
+        <Wrapper>
             <SortByTag active={isActive === "rating"} onClick={() => setActive("rating")}>
                 Rating
             </SortByTag>
@@ -39,21 +39,32 @@ function SortingTags({ defaultSort, setFilmsToShow, filmsToShow }) {
                     ⬆
                 </YearDirection>
             )}
-        </>
+        </Wrapper>
     );
 }
 
+const Wrapper = styled.div`
+    font-size: 0.8em;
+    margin: 8px 0;
+`
+
 const SortByTag = styled.span`
-    background-color: ${(p) => (p.active ? "hsl(0, 0%, 80%)" : "transparent")};
+    /* background-color: ${(p) => (p.active ? "hsl(0, 0%, 80%)" : "transparent")}; */
     margin-left: 16px;
-    padding: 8px 6px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top: ${(p) => (p.active ? "solid 4px blue" : "transparent")};
+    padding: 4px 6px;
     cursor: pointer;
+    &:first-child {
+        margin-left: 0;
+    }
 `;
 
 const YearDirection = styled.span`
     display: inline-block;
     /* background-color: ${(p) => (p.active ? "hsl(0, 0%, 80%)" : "transparent")}; */
-    padding: 8px 6px;
+    padding: 0px 8px;
     transition: all 0.3s ease-in-out;
     transform: ${(p) => (p.yearOrderIsAscending ? "rotate(0)" : "rotate(180deg)")};
     cursor: pointer;

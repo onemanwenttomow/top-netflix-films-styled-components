@@ -22,14 +22,12 @@ function FilmCardWrapper({ films, heading, defaultSort = "rating" }) {
 
     return (
         <>
-            <h3>
-                {heading} Sort By:
-                <SortingTags
-                    defaultSort={defaultSort}
-                    setFilmsToShow={setSortedFilms}
-                    filmsToShow={filmsToShow}
-                />
-            </h3>
+            <Heading>{heading}</Heading>
+            <SortingTags
+                defaultSort={defaultSort}
+                setFilmsToShow={setSortedFilms}
+                filmsToShow={filmsToShow}
+            />
             <FilmsContainer ref={scrollContainer}>
                 {filmsToShow.slice(0, numberToShow).map((film) => (
                     <FilmCard film={film} key={film.netflixid} />
@@ -52,5 +50,9 @@ const FilmsContainer = styled.div`
         background: black;
     } */
 `;
+
+const Heading = styled.div`
+    margin: 16px 0;
+`
 
 export default FilmCardWrapper;
