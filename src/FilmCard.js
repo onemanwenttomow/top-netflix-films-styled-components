@@ -24,7 +24,7 @@ function FilmCard({ film }) {
 
 const Wrapper = styled.div`
     /* background-color: green; */
-    padding: 8px;
+    padding: 0 8px;
     :first-of-type {
         padding-left: 0;
     }

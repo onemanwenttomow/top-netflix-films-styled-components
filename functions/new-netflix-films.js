@@ -1,6 +1,8 @@
 const axios = require("axios");
 const RAPIDAPIKEY = process.env.RAPIDAPIKEY;
 
+console.log('RAPIDAPIKEY: ',RAPIDAPIKEY);
+
 var options = {
     headers: {
         "x-rapidapi-key": RAPIDAPIKEY,

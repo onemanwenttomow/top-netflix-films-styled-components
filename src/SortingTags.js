@@ -14,7 +14,11 @@ function SortingTags({ defaultSort, setFilmsToShow, filmsToShow }) {
         setYearOrderIsAscending(true);
     }
 
-    function setYearDirection() {
+    function setYearDirection(e) {
+        e.stopPropagation();
+        if (isActive !== "year") {
+            return;
+        }
         setYearOrderIsAscending(!yearOrderIsAscending);
         let reOrderedFilms = yearOrderIsAscending
             ? sortFilmsDescending(filmsToShow)
@@ -29,8 +33,6 @@ function SortingTags({ defaultSort, setFilmsToShow, filmsToShow }) {
             </SortByTag>
             <SortByTag active={isActive === "year"} onClick={() => setActive("year")}>
                 Year
-            </SortByTag>
-            {isActive === "year" && (
                 <YearDirection
                     onClick={setYearDirection}
                     active={isActive === "year"}
@@ -38,26 +40,31 @@ function SortingTags({ defaultSort, setFilmsToShow, filmsToShow }) {
                 >
                     ⬆
                 </YearDirection>
-            )}
+            </SortByTag>
         </Wrapper>
     );
 }
 
 const Wrapper = styled.div`
+    display: flex;
+    justify-content: center;
     font-size: 0.8em;
     margin: 8px 0;
-`
+`;
 
 const SortByTag = styled.span`
     /* background-color: ${(p) => (p.active ? "hsl(0, 0%, 80%)" : "transparent")}; */
     margin-left: 16px;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top: ${(p) => (p.active ? "solid 4px blue" : "transparent")};
-    padding: 4px 6px;
+    /* border-bottom-left-radius: 4px; */
+    /* border-bottom-right-radius: 4px; */
+    border-bottom: ${(p) => (p.active ? "solid 2px blue" : "transparent")};
+    padding: 4px 16px;
     cursor: pointer;
     &:first-child {
         margin-left: 0;
+    }
+    &:last-child {
+        padding-right: 8px;
     }
 `;
 
