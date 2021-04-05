@@ -10,12 +10,13 @@ function FilmCard({ film }) {
             <Link href={`https://www.netflix.com/watch/${film.netflixid}`}>
                 <Figure>
                     <FilmPoster src={film.image} alt={film.title} />
-                    <FigCaption>
-                        ({film.released}) IMDB:{film.rating}
-                    </FigCaption>
-                    <FigCaption>
-                        {title}
-                    </FigCaption>
+                    <ExtraInfoWrapper>
+                        <ExtraInfo>({film.released})</ExtraInfo>
+                        <ExtraInfo>
+                            IMDB:<Bold>{film.rating}</Bold>
+                        </ExtraInfo>
+                    </ExtraInfoWrapper>
+                    <FigCaption>{title}</FigCaption>
                 </Figure>
             </Link>
         </Wrapper>
@@ -42,9 +43,24 @@ const Figure = styled.figure`
     max-width: 166px;
 `;
 
+const ExtraInfoWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 4px;
+`
+
+const Bold = styled.span`
+    color: hsl(0, 0%, 20%);
+`;
+
+const ExtraInfo = styled.p`
+    font-size: 0.8rem;
+    color: hsl(0, 0%, 40%);
+`;
+
 const FigCaption = styled.figcaption`
     font-size: 0.9rem;
-    color: hsl(0, 0%, 40%);
+    color: hsl(0, 0%, 20%);
 `;
 
 const FilmPoster = styled.img`

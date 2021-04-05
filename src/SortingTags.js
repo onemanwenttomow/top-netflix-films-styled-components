@@ -8,21 +8,15 @@ function SortingTags({ defaultSort, setFilmsToShow, filmsToShow }) {
 
     function setActive(sortBy) {
         setIsActive(sortBy);
-        let reOrderedFilms =
-            sortBy === "rating" ? sortFilmsByRating(filmsToShow) : sortFilmsAscending(filmsToShow);
-        setFilmsToShow(reOrderedFilms);
-        setYearOrderIsAscending(true);
-    }
-
-    function setYearDirection(e) {
-        e.stopPropagation();
-        if (isActive !== "year") {
-            return;
+        let reOrderedFilms;
+        if (sortBy === "rating") {
+            reOrderedFilms = sortFilmsByRating(filmsToShow);
+        } else {
+            setYearOrderIsAscending(!yearOrderIsAscending);
+            reOrderedFilms = yearOrderIsAscending
+                ? sortFilmsDescending(filmsToShow)
+                : sortFilmsAscending(filmsToShow);
         }
-        setYearOrderIsAscending(!yearOrderIsAscending);
-        let reOrderedFilms = yearOrderIsAscending
-            ? sortFilmsDescending(filmsToShow)
-            : sortFilmsAscending(filmsToShow);
         setFilmsToShow(reOrderedFilms);
     }
 
@@ -34,7 +28,6 @@ function SortingTags({ defaultSort, setFilmsToShow, filmsToShow }) {
             <SortByTag active={isActive === "year"} onClick={() => setActive("year")}>
                 Year
                 <YearDirection
-                    onClick={setYearDirection}
                     active={isActive === "year"}
                     yearOrderIsAscending={yearOrderIsAscending}
                 >
@@ -49,28 +42,30 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     font-size: 0.8em;
-    margin: 8px 0;
+    margin: 16px 0;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 `;
 
 const SortByTag = styled.span`
-    /* background-color: ${(p) => (p.active ? "hsl(0, 0%, 80%)" : "transparent")}; */
+    position: relative;
     margin-left: 16px;
-    /* border-bottom-left-radius: 4px; */
-    /* border-bottom-right-radius: 4px; */
-    border-bottom: ${(p) => (p.active ? "solid 2px blue" : "transparent")};
+    border-bottom: ${(p) => (p.active ? "solid 2px blue" : "solid 2px transparent")};
     padding: 4px 16px;
     cursor: pointer;
+    transition: all 0.3s ease-in;
+
     &:first-child {
         margin-left: 0;
     }
     &:last-child {
-        padding-right: 8px;
+        padding-right: 24px;
     }
 `;
 
 const YearDirection = styled.span`
+    position: absolute;
     display: inline-block;
-    /* background-color: ${(p) => (p.active ? "hsl(0, 0%, 80%)" : "transparent")}; */
     padding: 0px 8px;
     transition: all 0.3s ease-in-out;
     transform: ${(p) => (p.yearOrderIsAscending ? "rotate(0)" : "rotate(180deg)")};

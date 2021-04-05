@@ -52,8 +52,9 @@ const FilmsContainer = styled.div`
 `;
 
 const Heading = styled.div`
+    font-size: 1.2rem;
     margin: 8px 0;
     text-align: center;
-`
+`;
 
 export default FilmCardWrapper;
