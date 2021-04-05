@@ -1,7 +1,23 @@
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 
-function FilmCard({ closeModal, id }) {
-    return <Wrapper onClick={closeModal}>Modal - { id }</Wrapper>;
+function FilmCard(props) {
+    const imdbid = props.match.params.id;
+    useEffect(() => {
+        console.log("imdbid: ", imdbid);
+        (async () => {
+            const response = await fetch(`/.netlify/functions/extra-film-data?id=${imdbid}`);
+            const data = await response.json();
+            console.log('data: ',data);
+
+        })()
+    }, [imdbid]);
+    return <Wrapper>
+        <Link to="/">
+            Modal 
+        </Link>
+    </Wrapper>;
 }
 
 const Wrapper = styled.div`

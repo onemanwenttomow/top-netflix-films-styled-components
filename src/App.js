@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
 import styled from "styled-components/macro";
 import GlobalStyles from "./GlobalStyles";
 import FilmCardWrapper from "./FilmCardWrapper";
+import FilmModal from "./FilmModal";
 import { todaysDate, getFilmsByDateRange } from "./helpers";
 
 function App() {
@@ -47,33 +49,32 @@ function App() {
     }
     return (
         <>
-            <AppHeader>
-                <MainHeading>Top Netflix Films</MainHeading>
-                <FilmCardWrapper heading={"All Top Films"} films={topFilms} />
-                <FilmCardWrapper
-                    heading={"New (last 7 days)"}
-                    films={addedLast7Days}
-                />
-                <FilmCardWrapper
-                    heading={"New (last 30 days)"}
-                    films={addedLast30Days}
-                />
-                <FilmCardWrapper
-                    heading={"Films from 2010 - 2020"}
-                    films={getFilmsByDateRange(topFilms, 2010, 2020)}
-                    defaultSort="year"
-                />
-                <FilmCardWrapper
-                    heading={"Films from 2000 - 2010"}
-                    films={getFilmsByDateRange(topFilms, 2000, 2010)}
-                    defaultSort="year"
-                />
-                <FilmCardWrapper
-                    heading={"Films from 1990 - 2000"}
-                    films={getFilmsByDateRange(topFilms, 1990, 2000)}
-                    defaultSort="year"
-                />
-            </AppHeader>
+            <BrowserRouter>
+                <Route exact path="/">
+                    <AppHeader>
+                        <MainHeading>Top Netflix Films</MainHeading>
+                        <FilmCardWrapper heading={"All Top Films"} films={topFilms} />
+                        <FilmCardWrapper heading={"New (last 7 days)"} films={addedLast7Days} />
+                        <FilmCardWrapper heading={"New (last 30 days)"} films={addedLast30Days} />
+                        <FilmCardWrapper
+                            heading={"Films from 2010 - 2020"}
+                            films={getFilmsByDateRange(topFilms, 2010, 2020)}
+                            defaultSort="year"
+                        />
+                        <FilmCardWrapper
+                            heading={"Films from 2000 - 2010"}
+                            films={getFilmsByDateRange(topFilms, 2000, 2010)}
+                            defaultSort="year"
+                        />
+                        <FilmCardWrapper
+                            heading={"Films from 1990 - 2000"}
+                            films={getFilmsByDateRange(topFilms, 1990, 2000)}
+                            defaultSort="year"
+                        />
+                    </AppHeader>
+                </Route>
+                <Route path="/film/:id" component={FilmModal} />
+            </BrowserRouter>
             <GlobalStyles />
         </>
     );

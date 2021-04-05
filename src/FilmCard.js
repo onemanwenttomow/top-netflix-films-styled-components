@@ -1,33 +1,25 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import { parseText } from "./helpers";
-import FilmModal from "./FilmModal";
 
 function FilmCard({ film }) {
     const title = parseText(film.title);
-    const [showModal, setShowModal] = useState(false);
-    const [id, setId] = useState(null);
+
     // need to handle when img srcs are broken.
-
-    function handleClick(netflixid) {
-        console.log("clicked!");
-        setId(netflixid);
-        setShowModal(true);
-    }
-
     return (
         <Wrapper>
-            <Figure onClick={() => handleClick(film.imdbid)}>
-                <FilmPoster src={film.image} alt={film.title} />
-                <ExtraInfoWrapper>
-                    <ExtraInfo>({film.released})</ExtraInfo>
-                    <ExtraInfo>
-                        IMDB:<Bold>{film.rating}</Bold>
-                    </ExtraInfo>
-                </ExtraInfoWrapper>
-                <FigCaption>{title}</FigCaption>
-            </Figure>
-            {showModal && <FilmModal closeModal={() => setShowModal(false)} id={id} />}
+            <Link to={`/film/${film.imdbid}`} style={{textDecoration: "none"}}  >
+                <Figure>
+                    <FilmPoster src={film.image} alt={film.title} />
+                    <ExtraInfoWrapper>
+                        <ExtraInfo>({film.released})</ExtraInfo>
+                        <ExtraInfo>
+                            IMDB:<Bold>{film.rating}</Bold>
+                        </ExtraInfo>
+                    </ExtraInfoWrapper>
+                    <FigCaption>{title}</FigCaption>
+                </Figure>
+            </Link>
         </Wrapper>
     );
 }
