@@ -50,8 +50,8 @@ function App() {
     return (
         <>
             <BrowserRouter>
-                <Route exact path="/">
-                    <AppHeader>
+                <AppHeader>
+                    <Route exact path="/">
                         <MainHeading>Top Netflix Films</MainHeading>
                         <FilmCardWrapper heading={"All Top Films"} films={topFilms} />
                         <FilmCardWrapper heading={"New (last 7 days)"} films={addedLast7Days} />
@@ -71,9 +71,9 @@ function App() {
                             films={getFilmsByDateRange(topFilms, 1990, 2000)}
                             defaultSort="year"
                         />
-                    </AppHeader>
-                </Route>
-                <Route path="/film/:id" component={FilmModal} />
+                    </Route>
+                    <Route path="/film/:id" component={FilmModal} />
+                </AppHeader>
             </BrowserRouter>
             <GlobalStyles />
         </>
