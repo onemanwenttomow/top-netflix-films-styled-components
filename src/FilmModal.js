@@ -52,6 +52,13 @@ function FilmCard(props) {
                 </div>
             </div>
             <div>
+                <Trailer
+                    title="trailer"
+                    id="ytplayer"
+                    type="text/html"
+                    src={`https://www.youtube.com/embed/${filmData.videos?.results[0]?.key}`}
+                    frameBorder="0"
+                ></Trailer>
                 Youtube id - {filmData.videos?.results[0]?.id} {filmData.videos?.results[0]?.site}
             </div>
             <div>
@@ -75,6 +82,11 @@ const Wrapper = styled.div`
     right: 0;
     bottom: 0; */
     /* background-color: cadetblue; */
+`;
+
+const Trailer = styled.iframe`
+    width: 100%;
+    aspect-ratio: 16 / 9;
 `;
 
 export default FilmCard;
