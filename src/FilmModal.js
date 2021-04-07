@@ -40,9 +40,7 @@ function FilmCard(props) {
 
     return (
         <Wrapper>
-            <CloseIcon>
-                <Link to="/">X</Link>
-            </CloseIcon>
+            <CloseIcon to="/">X</CloseIcon>
             <Header>
                 <MiniPoster src={filmData.Poster} alt={filmData.Title} />
                 <HeaderContent>
@@ -81,7 +79,7 @@ function FilmCard(props) {
 
 const Wrapper = styled.div`
     position: relative;
-    margin-top: 32px;
+    margin-top: 16px;
     background-color: white;
 `;
 
@@ -90,9 +88,9 @@ const Header = styled.header`
     padding: 8px 0 8px 8px;
 `
 
-const CloseIcon = styled.div`
+const CloseIcon = styled(Link)`
     position: absolute;
-    top: -24px;
+    top: -16px;
     right: -8px;
     padding: 8px;
     display: flex;
@@ -103,14 +101,21 @@ const CloseIcon = styled.div`
     width: 48px;
     border-radius: 50%;
     background-color: hsl(0, 0%, 40%);
+    color: white;
+    font-weight: bold;
+    &:visited {
+        color: white;
+    }
 `;
 
 const MiniPoster = styled.img`
-    height: 60px;
+    height: 48px;
 `
 
 const HeaderContent = styled.div`
-    /* flex-grow: 1; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding: 0 8px;
 `
 
