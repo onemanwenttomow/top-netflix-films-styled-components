@@ -41,16 +41,18 @@ function FilmCard(props) {
     return (
         <Wrapper>
             <Link to="/">X</Link>
-            <div>
-                <img src={filmData.Poster} alt={filmData.Title} />
-                <h1>{filmData.Title}</h1>
-                <div>
-                    <p>{filmData.Rated}</p>
-                    <p>{filmData.Released}</p>
-                    <p>{filmData.Genre}</p>
-                    <p>{filmData.Runtime}</p>
-                </div>
-            </div>
+            <Header>
+                <MiniPoster src={filmData.Poster} alt={filmData.Title} />
+                <HeaderContent>
+                    <MainHeading>{filmData.Title}</MainHeading>
+                    <ExtraInfo>
+                        <InfoItem>{filmData.Rated}</InfoItem>
+                        <InfoItem>{filmData.Released}</InfoItem>
+                        <InfoItem>{filmData.Genre}</InfoItem>
+                        <InfoItem>{filmData.Runtime}</InfoItem>
+                    </ExtraInfo>
+                </HeaderContent>
+            </Header>
             <div>
                 <Trailer
                     title="trailer"
@@ -81,8 +83,39 @@ const Wrapper = styled.div`
     left: 0;
     right: 0;
     bottom: 0; */
-    /* background-color: cadetblue; */
+    background-color: white;
 `;
+
+const Header = styled.header`
+    display: flex;
+    padding: 8px;
+`
+
+const MiniPoster = styled.img`
+    height: 60px;
+`
+
+const HeaderContent = styled.div`
+    /* flex-grow: 1; */
+    padding: 0 16px;
+`
+
+const MainHeading = styled.h1`
+    font-size: 20px;
+`
+
+const ExtraInfo = styled.div`
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+`
+
+const InfoItem = styled.p`
+    padding: 0 16px;
+    &:first-of-type {
+        padding-left: 0;
+    }
+`
 
 const Trailer = styled.iframe`
     width: 100%;
