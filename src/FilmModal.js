@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
+import Trailer from "./Trailer";
+
+const logos = {
+    "Internet Movie Database": "/imdb.png",
+    "Rotten Tomatoes": "/rt.png",
+    "Metacritic": "/mc.png"
+}
 
 function FilmCard(props) {
     const imdbid = props.match.params.id;
@@ -12,16 +19,12 @@ function FilmCard(props) {
             const data = await response.json();
             console.log("data: ", data);
             if (data.error) {
-                console.log("data.status: ", data.status);
-                // return window.location.replace("/");
                 setErrorStatus(data.status);
                 return;
             }
             setFilmData(data);
         })();
     }, [imdbid]);
-
-    console.log("errorStatus: ", errorStatus);
 
     if (errorStatus === 404) {
         return (
@@ -53,24 +56,18 @@ function FilmCard(props) {
                     </ExtraInfo>
                 </HeaderContent>
             </Header>
-            <div>
-                <Trailer
-                    title="trailer"
-                    id="ytplayer"
-                    type="text/html"
-                    src={`https://www.youtube.com/embed/${filmData.videos?.results[0]?.key}`}
-                    frameBorder="0"
-                ></Trailer>
-                Youtube id - {filmData.videos?.results[0]?.id} {filmData.videos?.results[0]?.site}
-            </div>
-            <div>
+            <Trailer videos={filmData.videos?.results} />
+            <IconsWrapper>
                 {filmData.Ratings.map((score) => (
-                    <p key={score.Source}>
-                        {" "}
-                        {score.Source} - {score.Value}{" "}
-                    </p>
+                    <span key={score.Source}>
+                        <img src={logos[score.Source]} alt={score.Source} />
+                        <span>
+                            {" "}
+                             {score.Value}{" "}
+                        </span>
+                    </span>
                 ))}
-            </div>
+            </IconsWrapper>
             <div>{filmData.Plot}</div>
             <a href={`https://www.netflix.com/watch/${filmData.netflixid}`}>Watch on Netflix</a>
         </Wrapper>
@@ -81,17 +78,18 @@ const Wrapper = styled.div`
     position: relative;
     margin-top: 16px;
     background-color: white;
+    padding: 8px;
 `;
 
 const Header = styled.header`
     display: flex;
-    padding: 8px 0 8px 8px;
-`
+    padding-bottom: 8px;
+`;
 
 const CloseIcon = styled(Link)`
     position: absolute;
     top: -16px;
-    right: -8px;
+    right: -16px;
     padding: 8px;
     display: flex;
     justify-content: center;
@@ -110,35 +108,38 @@ const CloseIcon = styled(Link)`
 
 const MiniPoster = styled.img`
     height: 48px;
-`
+`;
 
 const HeaderContent = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 0 8px;
-`
+`;
 
 const MainHeading = styled.h1`
     font-size: 20px;
-`
+`;
 
 const ExtraInfo = styled.div`
     display: flex;
     justify-content: space-between;
     font-size: 12px;
-`
+`;
 
 const InfoItem = styled.p`
     padding: 0 16px;
     &:first-of-type {
         padding-left: 0;
     }
+`;
+
+const IconsWrapper = styled.div`
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0;
 `
 
-const Trailer = styled.iframe`
-    width: 100%;
-    aspect-ratio: 16 / 9;
-`;
+
 
 export default FilmCard;
