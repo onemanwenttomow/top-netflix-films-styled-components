@@ -51,7 +51,7 @@ const SortByTag = styled.span`
     position: relative;
     margin-left: 16px;
     border-bottom: ${(p) => (p.active ? "solid 2px blue" : "solid 2px transparent")};
-    padding: 4px 16px;
+    padding: 0px 16px;
     cursor: pointer;
     transition: all 0.3s ease-in;
 
