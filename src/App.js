@@ -45,7 +45,7 @@ function App() {
 
     // maybe add a loading component while it fetches the data...
     if (!topFilms.length) {
-        return null;
+        return <div>Loading...</div>;
     }
     return (
         <>
@@ -82,6 +82,8 @@ function App() {
 
 const MainHeading = styled.h1`
     margin: 32px 0;
+    text-transform: uppercase;
+    text-align: center;
 `;
 
 const AppHeader = styled.header`
@@ -89,7 +91,6 @@ const AppHeader = styled.header`
     max-width: 786px;
     margin-left: auto;
     margin-right: auto;
-    /* font-size: calc(10px + 2vmin); */
     padding: 0 16px;
     color: hsl(0, 0%, 20%);
 `;

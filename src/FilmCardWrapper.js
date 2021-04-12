@@ -45,10 +45,10 @@ const FilmsContainer = styled.div`
         width: 0; /* Remove scrollbar space */
         background: transparent; /* Optional: just make scrollbar invisible */
     }
-    /* Optional: show position indicator in red */
-    /* ::-webkit-scrollbar-thumb {
+    /* Optional: show position indicator */
+    ::-webkit-scrollbar-thumb {
         background: black;
-    } */
+    }
 `;
 
 const Heading = styled.div`
